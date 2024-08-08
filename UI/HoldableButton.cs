@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HoldableButton : MonoBehaviour
+public class HoldableButton : UIObject
 {
     public bool isOn;
 
