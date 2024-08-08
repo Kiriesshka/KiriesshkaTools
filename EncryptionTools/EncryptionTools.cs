@@ -7,7 +7,34 @@ namespace EncryptionTools
     public class Encryptor
     {
         string alphabet = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm 1234567890-=+_)(*&^%$#@!|}{';/?.><,~`";
+        Dictionary<char, string> leep = new Dictionary<char, string>
+        {
+            {'A',"4" },
+            {'B',"j3" },
+            {'C',"(" },
+            {'D',"[)" },
+            {'E',"3" },
+            {'F',"|#" },
+            {'G',"[," },
+            {'H',"|-|" },
+            {'J',"]" },
+            {'K',"|<" },
+            {'L',"|" },
+            {'M',"[v]" },
+            {'N',"/V" },
+            {'O',"()" },
+            {'P',"|>" },
+            {'Q',"9" },
+            {'R',"/2" },
+            {'S',"5" },
+            {'T',"7" },
+            {'U',"v" },
+            {'W',"VV" },
+            {'X',"><" },
+            {'Y',"`/" },
+            {'Z',"7_" },
 
+        };
 
         //EXAMPLE 
         //encrypt with keys abc and h819 in PLUS mode
@@ -78,6 +105,20 @@ namespace EncryptionTools
         public void SetAlphabet(string newAlphabet)
         {
             alphabet = newAlphabet;
+        }
+        public string toLeepSpeak(string data)
+        {
+            string res = "";
+
+            for(int i =0; i < data.Length; i++)
+            {
+                if (leep.ContainsKey(data[i]))
+                {
+                    res += leep[data[i]];
+                }
+                else res+= data[i]; 
+            }
+            return res;
         }
     }
 }
