@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIObject : MonoBehaviour
 {
-    [Header("Звуки при взаимодействии")]
+    [Header("РђСѓРґРёРѕ")]
     public AudioClip audioOnMouseDown;
     public AudioClip audioOnMouseUp;
     public void MouseDownSound()
