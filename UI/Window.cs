@@ -12,10 +12,10 @@ public class Window : UIObject
         FloatingLerp,
         FloatingInst
     }
-    [Header("Режим работы")]
+    [Header("Р РµР¶РёРј СЂР°Р±РѕС‚С‹")]
     public Mode mode;
 
-    [Header("Переменные")]
+    [Header("РћСЃС‚Р°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё")]
     public float speed = 5;
     public float distanceToConnect = 20;
     public RectTransform openAnchor;
