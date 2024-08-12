@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace KiriesshkaData
 {
@@ -44,7 +45,7 @@ namespace KiriesshkaData
         }
         public void Add(string name, string stringToSave)
         {
-            dataToSave += name + " : "+stringToSave + " : _STRING_ END\n";
+            dataToSave += name + " S:S "+stringToSave + " S:S _STRING_ END\n";
         }
         public void Add(string name, int intToSave)
         {
@@ -60,15 +61,14 @@ namespace KiriesshkaData
             {
                 if (s.Contains("_STRING_"))
                 {
-                    List<string> parts = new List<string>(s.Split(" : "));
+                    List<string> parts = new List<string>(s.Split(" S:S "));
                     if (parts[0] == name)
                     {
                         return parts[1];
                     }
                 }
             }
-            Debug.LogError("No STRING with name {" + name + "}");
-            return "ERROR";
+            throw new ArgumentException("No STRING with name {" + name + "}");
         }
         public float GetFloat(string name)
         {
@@ -76,15 +76,14 @@ namespace KiriesshkaData
             {
                 if (s.Contains("_FLOAT_"))
                 {
-                    List<string> parts = new List<string>(s.Split(" : "));
+                    List<string> parts = new List<string>(s.Split(" F:F "));
                     if (parts[0] == name)
                     {
                         return float.Parse(parts[1].Replace(" ", ""));
                     }
                 }
             }
-            Debug.LogError("No FLOAT with name {" + name + "}");
-            return 0f;
+            throw new ArgumentException("No FLOAT with name {" + name + "}");
         }
         public int GetInt(string name)
         {
@@ -92,15 +91,14 @@ namespace KiriesshkaData
             {
                 if (s.Contains("_INT_"))
                 {
-                    List<string> parts = new List<string>(s.Split(" : "));
+                    List<string> parts = new List<string>(s.Split(" I:I "));
                     if (parts[0] == name)
                     {
                         return int.Parse(parts[1].Replace(" ", ""));
                     }
                 }
             }
-            Debug.LogError("No INT with name {"+name+"}");
-            return 0;
+            throw new ArgumentException("No INT with name {" + name + "}");
         }
         public bool GetBool(string name)
         {
@@ -108,17 +106,30 @@ namespace KiriesshkaData
             {
                 if (s.Contains("_BOOL_"))
                 {
-                    List<string> parts = new List<string>(s.Split(" : "));
+                    List<string> parts = new List<string>(s.Split(" B:B "));
                     if (parts[0] == name)
                     {
                         if (parts[1].Contains("true")) return true;
                         return false;
                     }
-                    Debug.Log("adkls");
                 }
             }
-            Debug.LogError("No BOOL with name {" + name + "}");
-            return false;
+            throw new ArgumentException("No BOOL with name {" + name + "}");
+        }
+        public T GetClass<T>(string name)
+        {
+            foreach(string s in loadedData)
+            {
+                if (s.Contains("_CLASS_"))
+                {
+                    List<string> parts = new List<string>(s.Split(" C:C "));
+                    if(parts[0] == name)
+                    {
+                        return JsonUtility.FromJson<T>(parts[1]);
+                    }
+                }
+            }
+            throw new ArgumentException("No CLASS with name {" + name + "}");
         }
         public void Save()
         {
@@ -138,21 +149,19 @@ namespace KiriesshkaData
         }
         public string StringifyClass<T>(string name, T obj)
         {
-            return name + " : " + JsonUtility.ToJson(obj, prettyPrint) + " : _CLASS_ END\n";
+            return name + " C:C " + JsonUtility.ToJson(obj, prettyPrint) + " C:C _CLASS_ END\n";
         }
         public string StringifyBool(string name, bool b)
         {
-            return name + " : " + (b ? "true" : "else") + " : _BOOL_ END\n";
+            return name + " B:B " + (b ? "true" : "else") + " B:B _BOOL_ END\n";
         }
         public string StringifyFloat(string name, float f)
         {
-            return name + " : " + f.ToString() + " : _FLOAT_ END\n";
+            return name + " F:F " + f.ToString() + " F:F _FLOAT_ END\n";
         }
         public string StringifyInt(string name, int i)
         {
-            return name + " : " + i.ToString() + " : _INT_ END\n";
+            return name + " I:I " + i.ToString() + " I:I _INT_ END\n";
         }
-
     }
 }
-
