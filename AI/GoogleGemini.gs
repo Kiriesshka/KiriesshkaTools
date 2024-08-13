@@ -1,3 +1,5 @@
+//Этот скрипт нужно расположить в Google Apps Script и скопировать ссылку на него(ее даст сервис после деплоя как web приложения)
+
 function doPost(e) {
   var parameter = e.parameter.parameter;
 
