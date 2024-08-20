@@ -12,10 +12,10 @@ public class Window : UIObject
         FloatingLerp,
         FloatingInst
     }
-    [Header("Р РµР¶РёРј СЂР°Р±РѕС‚С‹")]
+    [Header("Режим работы")]
     public Mode mode;
 
-    [Header("РћСЃС‚Р°Р»СЊРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё")]
+    [Header("Переменные")]
     public float speed = 5;
     public float distanceToConnect = 20;
     public RectTransform openAnchor;
@@ -129,5 +129,9 @@ public class Window : UIObject
     public void Close()
     {
         isOpened = false;
+    }
+    public void InvertState()
+    {
+        isOpened = !isOpened;
     }
 }
