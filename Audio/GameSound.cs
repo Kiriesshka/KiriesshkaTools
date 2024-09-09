@@ -8,7 +8,7 @@ public class GameSound : MonoBehaviour
     public List<float> channelsVolumeSettings;
     public void MakeSound(string soundName, string soundChannel)
     {
-        if (!soundChannels.Contains(soundName))
+        if (!soundChannels.Contains(soundChannel))
         {
             Debug.LogError("No sound channel with name: [" + soundChannel + "]");
             return;
