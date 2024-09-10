@@ -16,7 +16,14 @@ public class CharacterAnimator : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 120;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(TryGetComponent(out SpriteRenderer b))
+        {
+            spriteRenderer = b;
+        }
+        if(TryGetComponent<Image>(out Image a))
+        {
+            image = a;
+        }
         if(runAnimation) RunAnimation(animationName);
     }
     public void RunAnimation(string path)
