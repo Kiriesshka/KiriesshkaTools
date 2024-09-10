@@ -155,7 +155,7 @@ namespace KiriesshkaData
         }
         public string StringifyBool(string name, bool b)
         {
-            return name + " B:B " + (b ? "true" : "else") + " B:B  END\n";
+            return name + " B:B " + (b ? "true" : "false") + " B:B  END\n";
         }
         public string StringifyFloat(string name, float f)
         {
