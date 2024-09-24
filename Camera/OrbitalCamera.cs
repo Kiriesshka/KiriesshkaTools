@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Collections.Generic;
 public class OrbitCamera : MonoBehaviour
 {
     public Transform target; // Цель, вокруг которой будет вращаться камера
@@ -14,7 +14,7 @@ public class OrbitCamera : MonoBehaviour
     private Vector3 currentRotation;
     private bool isDragging;
 
-
+    public RectTransform joystick;
     void Start()
     {
         if (target == null)
@@ -34,23 +34,26 @@ public class OrbitCamera : MonoBehaviour
         {
             //gameOverWindow.Close();
             UpdateCameraPosition();
-            if (Input.touchCount == 1)
+            if (Input.touchCount >= 1)
             {
                 Touch touch = Input.GetTouch(0);
-                bool canContinue = false;
-                foreach (Touch t in Input.touches)
+                float distanceToJoy = Screen.width*2;
+                if(Input.touchCount > 1)
                 {
-                    if (EventSystem.current.IsPointerOverGameObject(t.fingerId))
-                        continue;
-                    else
+                    foreach (var t in Input.touches)
                     {
-                        canContinue = true;
-                        touch = t; break;
-
+                        float distanceToJoyTMP = Vector3.Distance(joystick.position, t.position);
+                        if (distanceToJoyTMP < distanceToJoy)
+                        {
+                            distanceToJoy = distanceToJoyTMP;
+                            touch = t;
+                        }
                     }
                 }
-                if (!canContinue) return;
-
+                else
+                {
+                    if (Vector3.Distance(joystick.position, Input.GetTouch(0).position) < 10) return;
+                }
                 if (touch.phase == TouchPhase.Began)
                 {
                     //lastTouchPosition = touch.position;
