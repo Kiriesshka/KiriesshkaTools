@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CameraFingerScale : MonoBehaviour
+public class CameraFingerScale2D : MonoBehaviour
 {
     private Camera cam;
     public float scale;

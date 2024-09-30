@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CameraFingerScale : MonoBehaviour
+public class CameraFingerScale3Distance : MonoBehaviour
 {
     public OrbitCamera oC;
     public float scale;
@@ -12,6 +12,7 @@ public class CameraFingerScale : MonoBehaviour
     private Vector2 secondPoint;
     private float refernceDistance;
     private float oldScale;
+
     private void Update()
     {
         if(Input.touchCount == 2)
