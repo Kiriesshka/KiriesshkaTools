@@ -15,7 +15,11 @@ public class CameraFingerScale3Distance : MonoBehaviour
 
     private void Update()
     {
-        if(Input.touchCount == 2)
+        float scrollDelta = Input.mouseScrollDelta.y;
+        oC.distance -= scrollDelta * Time.deltaTime * 10;
+        if (oC.distance > maxSize) oC.distance = maxSize;
+        if (oC.distance < minSize) oC.distance = minSize;
+        if (Input.touchCount == 2)
         {
                 if (listenForTouches)
                 {
