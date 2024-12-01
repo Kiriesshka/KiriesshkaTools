@@ -26,6 +26,9 @@ public class Window : UIObject
 	private RectTransform rectTransform;
 
 	private Vector3 mouseDifference;
+	public bool setOnFront;
+	public bool isCoolFloatingLerp;
+	private Vector3 mouseStartPosition;
 	private void Start()
 	{
 		rectTransform = GetComponent<RectTransform>();
@@ -98,10 +101,31 @@ public class Window : UIObject
 			}
 		}else if (mode == Mode.FloatingLerp)
 		{
+            
 			if (isOpened)
 			{
-				if (mouseDifference == Vector3.zero) Debug.LogWarning("NO MOUSE POSITION GET");
-				rectTransform.position = Vector3.Lerp(rectTransform.position, Input.mousePosition + mouseDifference, Time.deltaTime * speed);
+				if (isCoolFloatingLerp)
+				{
+					if (mouseDifference == Vector3.zero) Debug.LogWarning("NO MOUSE POSITION GET");
+					else
+					{
+						rectTransform.position = Vector3.Lerp(rectTransform.position, (Input.mousePosition + mouseDifference), Time.deltaTime * speed);
+						transform.rotation =Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, Vector2.Distance(mouseStartPosition, Input.mousePosition) / 30 * ((mouseStartPosition-Input.mousePosition).x < 0 ? 1 : -1))), Time.deltaTime*3);
+					}
+				}
+                else
+                {
+					if (mouseDifference == Vector3.zero) Debug.LogWarning("NO MOUSE POSITION GET");
+					else rectTransform.position = Vector3.Lerp(rectTransform.position, Input.mousePosition + mouseDifference, Time.deltaTime * speed);
+				}
+				
+			}else if (closeAnchor)
+            {
+				if (rectTransform.position != closeAnchor.position)
+				{
+					rectTransform.position = Vector3.Lerp(rectTransform.position, closeAnchor.position, speed * Time.deltaTime);
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime*4);
+				}
 			}
 		}
 		else if (mode == Mode.FloatingInst)
@@ -109,7 +133,14 @@ public class Window : UIObject
 			if (isOpened)
 			{
 				if (mouseDifference == Vector3.zero) Debug.LogWarning("NO MOUSE POSITION GET");
-				rectTransform.position = Input.mousePosition + mouseDifference;
+				else rectTransform.position = Input.mousePosition + mouseDifference;
+			}
+			else if (closeAnchor)
+			{
+				if (rectTransform.position != closeAnchor.position)
+				{
+					rectTransform.position = closeAnchor.position;
+				}
 			}
 		}
 	}
@@ -143,6 +174,11 @@ public class Window : UIObject
 	{
 		isOpened = true;
 		mouseDifference = rectTransform.position - Input.mousePosition;
+		mouseStartPosition = Input.mousePosition;
+		if(setOnFront)
+        {
+			transform.SetAsLastSibling();
+        }
 	}
 	public void SetUnControllable()
 	{
