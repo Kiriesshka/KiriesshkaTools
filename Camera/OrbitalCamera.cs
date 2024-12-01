@@ -40,23 +40,26 @@ public class OrbitCamera : MonoBehaviour
                 float distanceToJoy = Screen.width*2;
                 if(Input.touchCount > 1)
                 {
-                    foreach (var t in Input.touches)
+                    if (joystick)
                     {
-                        float distanceToJoyTMP = Vector3.Distance(joystick.position, t.position);
-                        if (distanceToJoyTMP < distanceToJoy)
+                        foreach (var t in Input.touches)
                         {
-                            distanceToJoy = distanceToJoyTMP;
-                            touch = t;
+                            float distanceToJoyTMP = Vector3.Distance(joystick.position, t.position);
+                            if (distanceToJoyTMP < distanceToJoy)
+                            {
+                                distanceToJoy = distanceToJoyTMP;
+                                touch = t;
+                            }
                         }
                     }
+                   
                 }
-                else
+                else if(joystick)
                 {
                     if (Vector3.Distance(joystick.position, Input.GetTouch(0).position) < 10) return;
                 }
                 if (touch.phase == TouchPhase.Began)
                 {
-                    //lastTouchPosition = touch.position;
                     isDragging = true;
                 }
                 else if (touch.phase == TouchPhase.Moved && isDragging)
