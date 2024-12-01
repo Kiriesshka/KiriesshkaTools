@@ -45,16 +45,16 @@ public class OrbitCamera : MonoBehaviour
                         foreach (var t in Input.touches)
                         {
                             float distanceToJoyTMP = Vector3.Distance(joystick.position, t.position);
-                            if (distanceToJoyTMP < distanceToJoy)
+                            if (distanceToJoyTMP > distanceToJoy)
                             {
                                 distanceToJoy = distanceToJoyTMP;
                                 touch = t;
                             }
                         }
                     }
-                   
+                    if (distanceToJoy <= 10) return;
                 }
-                else if(joystick)
+                else if(joystick && Input.touchCount == 1)
                 {
                     if (Vector3.Distance(joystick.position, Input.GetTouch(0).position) < 10) return;
                 }
