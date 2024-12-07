@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+public class TextOutTypeA : MonoBehaviour
+{
+    public TMP_Text tmp;
+    public string textToShow;
+    public float speed;
+    private int timer;
+    public void PushText(string a)
+    {
+        timer = 0;
+        tmp.text = "";
+        textToShow = a;
+    }
+    private void Update()
+    {
+        timer++;
+        if (timer % speed == 0)
+        {
+            if (tmp.text != textToShow)
+            {
+                tmp.text += textToShow[tmp.text.Length];
+            }
+        }
+        
+
+    }
+}
