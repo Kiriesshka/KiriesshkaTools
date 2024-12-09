@@ -6,7 +6,7 @@ public class TextOutTypeA : MonoBehaviour
 {
     public TMP_Text tmp;
     public string textToShow;
-    public float speed;
+    public float timeToSymbol;
     private int timer;
     public void PushText(string a)
     {
@@ -16,9 +16,10 @@ public class TextOutTypeA : MonoBehaviour
     }
     private void Update()
     {
-        timer++;
-        if (timer % speed == 0)
+        timer+=Time.deltaTime;
+        if (timer > timeToSymbol)
         {
+            timer = 0;
             if (tmp.text != textToShow)
             {
                 tmp.text += textToShow[tmp.text.Length];
