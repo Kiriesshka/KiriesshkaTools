@@ -7,7 +7,7 @@ public class TextOutTypeA : MonoBehaviour
     public TMP_Text tmp;
     public string textToShow;
     public float timeToSymbol;
-    private int timer;
+    private float timer;
     public void PushText(string a)
     {
         timer = 0;
