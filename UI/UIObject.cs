@@ -17,7 +17,6 @@ public class UIObject : MonoBehaviour
 	private SpriteRenderer spriteRenderer;
 	private TMP_Text txt;
 	
-	[Header("����� ��� ��������������")]
 	public AudioClip audioOnMouseDown;
 	public AudioClip audioOnMouseUp;
 	public AudioClip audioOnMouseEnter;

@@ -12,10 +12,8 @@ public class Window : UIObject
 		FloatingLerp,
 		FloatingInst
 	}
-	[Header("����� ������")]
 	public Mode mode;
 
-	[Header("����������")]
 	public float speed = 5;
 	public float distanceToConnect = 20;
 	public RectTransform openAnchor;
